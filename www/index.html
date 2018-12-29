@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<button id="click">Click me!</button>
+	<p id="doc">Hello</p>
+
+</body>
+<script type="text/javascript">
+	/*var button = document.getElementById('click');
+	button.addEventListener("click", callRun, false );
+
+	function callRun(){
+	function run(num){
+		console.log(num);
+	if (num == 0) {
+		
+		return num;
+	}
+	run (num + 1);
+	}
+	run(100)
+}*/
+
+window.addEventListener('load', giveMeData, false);
+var doc = document.getElementById("doc");
+ function giveMeData(){
+	var url = "http://192.168.33.29:3000/api/v1/admins";
+	var method = 'GET';
+	getData(url, method);
+}
+
+function getData(url, method){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState == 4) {
+		if (xhr.status == 200) {
+			var res = xhr.responseText;
+			console.log(res);
+			data = JSON.parse(res);
+			console.log(data.length);
+			for (var i = 0,  j = data.length; i < j; i++) {
+				console.log(data[i].email);
+				doc.append(data[i].email);
+			}
+
+			
+			console.log(doc);
+
+			console.log("here");
+		}else if(xhr.status == 404){
+			var res = xhr.responseText;
+
+			console.log(res);
+		}	
+	}
+}
+	xhr.open(method, url, true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.setRequestHeader("x-auth", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzAyZTY4ZWQ2YzFkZTFjMDdiYzczODAiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTQzNzc3MzcyfQ.KHt76VdDwUyvKmzBXtAhMR4dYRA_4PYpDrmlrA8bqtc");
+
+	xhr.send();
+}
+
+</script>
+</html>
